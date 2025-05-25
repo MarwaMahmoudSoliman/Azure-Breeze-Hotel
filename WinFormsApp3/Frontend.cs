@@ -36,8 +36,9 @@ namespace Hotel_Manager
                  _ => false
              };
 
-        string AccountSid = "ACcb86dacb791bef978628a2e16b1f7a24";
-        string AuthToken = "3f344a07336d2e0ac5e467f72a1e650d";
+    
+        string AccountSid = Environment.GetEnvironmentVariable("TWILIO_SID");
+        string AuthToken = Environment.GetEnvironmentVariable("TWILIO_AUTH_TOKEN");
         string RecvPhoneNumber = "";
         private readonly string _connectionString = "Data Source=DESKTOP-1K797I9\\SQLSERVER2022;Initial Catalog=FRONTEND_RESERVATIONn;Integrated Security=True;TrustServerCertificate=True;";
         private readonly ReservationManager _reservationManager = new ReservationManager();
