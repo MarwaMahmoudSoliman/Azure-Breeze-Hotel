@@ -1,23 +1,19 @@
-markdown
-
-# Hotel Management System - WinForms (Dapper + EF Core Benchmark)
+# Hotel Management System - WinForms (Dapper)
 
 ![.NET](https://img.shields.io/badge/.NET-6.0-blue)
 ![Dapper](https://img.shields.io/badge/Dapper-2.0-green)
-![EF Core](https://img.shields.io/badge/EF_Core-7.0-purple)
 ![WinForms](https://img.shields.io/badge/WinForms-Desktop-lightgrey)
 
-A high-performance hotel management solution comparing **Dapper** vs **EF Core** with benchmark tests.
+A high-performance hotel management system using **Dapper**, a lightweight and fast micro-ORM for .NET.
 
 ## Key Features
 
 ### Performance-Optimized Data Access
-- **Dapper Implementation** for high-speed queries
-- **EF Core Implementation** for developer productivity
-- **Benchmark Tests** comparing both approaches
+- **Dapper Integration** for high-speed database queries
+- **Minimal Overhead** and precise control over SQL execution
 
 ### Core Modules
-- Reservation management system
+- Reservation management
 - Real-time room status dashboard
 - Payment processing with transaction logging
 - Guest services tracking
@@ -28,90 +24,62 @@ A high-performance hotel management solution comparing **Dapper** vs **EF Core**
 |---------------------|----------------------------|
 | Frontend            | WinForms                   |
 | Micro-ORM           | Dapper 2.0                 |
-| Full ORM            | Entity Framework Core 7    |
 | Database            | SQL Server 2019            |
-| Benchmarking        | BenchmarkDotNet            |
 | DI Container        | Microsoft.Extensions.DependencyInjection |
 
-## Benchmark Results
-
-```text
-| Method          | Mean     | Error   | StdDev  | Allocated |
-|----------------|---------:|--------:|--------:|----------:|
-| DapperQuery    | 1.25 ms  | 0.02 ms | 0.02 ms | 24 KB     |
-| EFCoreQuery    | 3.45 ms  | 0.05 ms | 0.04 ms | 112 KB    |
-
-Benchmark performed for 100 concurrent reservation queries
-Solution Structure
+## Solution Structure
 
 WinFormsApp3/
 ├── Data/
-│   ├── DapperContext.cs      # Dapper DB access
-│   └── EFCoreContext.cs      # EF Core DB context
-├── BenchmarkTest/
-│   └── ORMComparisonTests.cs # Benchmark scenarios
+│ └── DapperContext.cs # Dapper DB access
 ├── Services/
-│   ├── DapperService.cs      # Dapper business logic
-│   └── EFCoreService.cs      # EF Core business logic
+│ └── DapperService.cs # Dapper business logic
 └── Forms/
-    └── MainForm.cs           # Unified UI interface
+└── MainForm.cs # Unified UI interface
 
-Getting Started
-Prerequisites
 
-    .NET 6 SDK
+## Getting Started
 
-    SQL Server 2019+
+### Prerequisites
 
-    BenchmarkDotNet (included via NuGet)
+- .NET 6 SDK
+- SQL Server 2019+
 
-Installation
+### Installation
 
-    Clone the repository:
-    bash
+1. Clone the repository:
 
+```bash
 git clone https://github.com/MarwaMahmoudSoliman/Hotel_system.git
 cd Hotel_system/WinFormsApp3
 
-Configure connection strings in:
-json
+    Configure connection strings in:
 
 // appsettings.json
 {
   "ConnectionStrings": {
-    "DapperConnection": "Server=.;Database=HotelDB;Trusted_Connection=True;",
-    "EFCoreConnection": "Server=.;Database=HotelDB;Trusted_Connection=True;"
+    "DapperConnection": "Server=.;Database=HotelDB;Trusted_Connection=True;"
   }
 }
 
-Run benchmarks:
-bash
+    Run the application:
 
-    dotnet run -p BenchmarkTest -c Release
+dotnet run --project WinFormsApp3
 
 Usage
-Switching ORM Providers
-csharp
+Dependency Injection
 
 // In Program.cs
 builder.Services.AddTransient<IDataService>(
-    provider => useDapper 
-        ? new DapperService(connString) 
-        : new EFCoreService(efContext));
+    provider => new DapperService(connString));
 
-Key Differences
-Aspect	Dapper Implementation	EF Core Implementation
-Query Performance	⚡ 3x Faster	Standard
-Development Speed	Moderate	🚀 Rapid
-Memory Usage	Low	Higher
-Change Tracking	Manual	Automatic
 Contribution Guidelines
 
-    Benchmark new features with both ORMs
+    Follow clean architecture and separation of concerns
 
-    Maintain identical functionality in both implementations
+    Keep SQL queries efficient and readable
 
-    Document performance characteristics
+    Write clear and maintainable Dapper extensions if needed
 
 License
 
